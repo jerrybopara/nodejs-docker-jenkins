@@ -9,7 +9,7 @@ pipeline{
 	stages {
 		stage('Cloning code from Github') {
 			steps {
-				sh 'git clone https://github.com/jerrybopara/nodejs-docker-jenkins.git'
+				sh 'rm -rf ${env.WORKSPACE} && git clone https://github.com/jerrybopara/nodejs-docker-jenkins.git'
 			}
 
 		}
