@@ -9,14 +9,14 @@ pipeline{
 	stages {
 		stage('Cloning code from Github') {
 			steps {
-				sh 'rm -rf ${env.WORKSPACE} && git clone https://github.com/jerrybopara/nodejs-docker-jenkins.git'
+				sh 'git clone https://github.com/jerrybopara/nodejs-docker-jenkins.git'
 			}
 
 		}
 		stage('Building an Docker Image') {
 
 			steps {
-				sh 'docker build -t jerrybopara/nodejs-docker-jenkins:${env.BUILD_NUMBER} .'
+				sh 'docker build -t jerrybopara/nodejs-docker-jenkins:latest .'
 			}
 		}
 
@@ -30,7 +30,7 @@ pipeline{
 		stage('Pushing Image to DockerHub') {
 
 			steps {
-				sh 'docker push jerrybopara/nodejs-docker-jenkins:${env.BUILD_NUMBER}'
+				sh 'docker push jerrybopara/nodejs-docker-jenkins:latest'
 			}
 		}
 	}
