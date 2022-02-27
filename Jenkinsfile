@@ -7,22 +7,27 @@ pipeline{
 	}
 
 	stages {
+		stage('Cloning code from Github') {
+			steps {
+				git 'https://github.com/jerrybopara/nodejs-docker-jenkins.git'
+			}
 
-		stage('Build') {
+		}
+		stage('Building an Docker Image') {
 
 			steps {
 				sh 'docker build -t jerrybopara/nodejs-docker-jenkins:latest .'
 			}
 		}
 
-		stage('Login') {
+		stage('Login to DockerHub') {
 
 			steps {
 				sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
 			}
 		}
 
-		stage('Push') {
+		stage('Pushing Image to DockerHub') {
 
 			steps {
 				sh 'docker push jerrybopara/nodejs-docker-jenkins:latest'
@@ -34,6 +39,6 @@ pipeline{
 		always {
 			sh 'docker logout'
 		}
-	}
+	}	
 
 }
