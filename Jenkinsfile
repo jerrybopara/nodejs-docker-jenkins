@@ -16,7 +16,7 @@ pipeline{
 		stage('Building an Docker Image') {
 
 			steps {
-				sh 'docker build -t jerrybopara/nodejs-docker-jenkins:latest .'
+				sh 'docker build -t jerrybopara/nodejs-docker-jenkins:"${env.BUILD_NUMBER}" .'
 			}
 		}
 
@@ -30,7 +30,7 @@ pipeline{
 		stage('Pushing Image to DockerHub') {
 
 			steps {
-				sh 'docker push jerrybopara/nodejs-docker-jenkins:latest'
+				sh 'docker push jerrybopara/nodejs-docker-jenkins:"${env.BUILD_NUMBER}"'
 			}
 		}
 	}
