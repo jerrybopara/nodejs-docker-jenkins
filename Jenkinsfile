@@ -19,8 +19,9 @@ pipeline{
 		}
 
 		stage(' Run Docker Container with latest Build.') {
-			sh 'docker run -d -p 8181:8080 jerrybopara/nodejs-docker-jenkins:$BUILD_NUMBER'
-
+			steps {
+				sh 'docker run -d -p 8181:8080 jerrybopara/nodejs-docker-jenkins:$BUILD_NUMBER'
+			}
 		}
 
 		stage('Login to DockerHub') {
