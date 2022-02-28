@@ -9,10 +9,8 @@ pipeline{
 	stages {
 		stage('Building an Docker Image') {
 			steps {
-				// sh 'docker build -t nodejs-docker-jenkins:latest .'
-			 	// sh 'docker tag nodejs-docker-jenkins jerrybopara/nodejs-docker-jenkins:$BUILD_NUMBER'
 				sh 'docker build -t ${ImageName}:latest .'
-				sh 'docker tag nodejs-docker-jenkins ${DockerHubUser}/${ImageName}:$BUILD_NUMBER'
+				sh 'docker tag ${ImageName} ${DockerHubUser}/${ImageName}:$BUILD_NUMBER'
 
 			}
 
@@ -25,19 +23,20 @@ pipeline{
 			}
 		}
 
-		stage('Login to DockerHub') {
+		stage('Login to DockerHub & Pushing Image') {
 			steps {
 				sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+				sh 'docker push ${DockerHubUser}/${ImageName}:$BUILD_NUMBER'
 			}
 		}
 
-		stage('Pushing Image to DockerHub') {
-			steps {
-				// sh 'docker push jerrybopara/nodejs-docker-jenkins:$BUILD_NUMBER'
-				sh 'docker push ${DockerHubUser}/${ImageName}:$BUILD_NUMBER'
-				
-			}
-		}
+		// stage('Pushing Image to DockerHub') {
+		// 	steps {
+		// 		// sh 'docker push jerrybopara/nodejs-docker-jenkins:$BUILD_NUMBER'
+		// 		sh 'docker push ${DockerHubUser}/${ImageName}:$BUILD_NUMBER'
+					
+		// 	}
+		// }
 	}
 
 	post {
