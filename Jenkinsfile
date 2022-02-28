@@ -7,6 +7,22 @@ pipeline{
 	}
 
 	stages {
+		stage('Stopping & Removing the older Container.') {
+			steps {
+				sh '''
+					docker ps  -a | grep ${ContainerName}
+					
+					if [ $? -eq 0 ]; then 
+						ImageID=`docker images | grep "${DockerHubUser}/${ImageName}" | awk '{print $3}'`
+						docker stop ${ContainerName}
+						docker rm ${ContainerName}
+						docker rmi ${ImageID} --force
+					fi 	
+				'''
+			}
+
+		}
+
 		stage('Building an Docker Image') {
 
 			steps {
@@ -17,37 +33,13 @@ pipeline{
 
 		}
 
-		stage('Running Docker Container with latest Build.') {
-			
+		stage('Run Docker Container with latest Build.') {
+
 			steps {
-                sh '''
-                  	docker ps  -a | grep ${ContainerName}
-
-					if [ $? -eq 0 ]; then 
-						echo "Stopping & Removing the older Container."
-						ImageID=`docker images | grep "${DockerHubUser}/${ImageName}" | awk '{print $3}'`
-						docker stop ${ContainerName}
-						docker rm ${ContainerName}
-						docker rmi ${ImageID} --force
-
-						docker run -d --name ${ContainerName} -p 8181:8080 ${DockerHubUser}/${ImageName}:$BUILD_NUMBER
-					else 
-						echo "No old container was found, Running new one."
-						docker run -d --name ${ContainerName} -p 8181:8080 ${DockerHubUser}/${ImageName}:$BUILD_NUMBER
-					fi
-                    
-                '''
+				// sh 'docker run -d -p 8181:8080 jerrybopara/nodejs-docker-jenkins:$BUILD_NUMBER'
+				sh 'docker run -d --name ${ContainerName} -p 8181:8080 ${DockerHubUser}/${ImageName}:$BUILD_NUMBER'
 			}
-			
 		}
-
-		// stage('Run Docker Container with latest Build.') {
-
-		// 	steps {
-		// 		// sh 'docker run -d -p 8181:8080 jerrybopara/nodejs-docker-jenkins:$BUILD_NUMBER'
-		// 		sh 'docker run -d --name ${ContainerName} -p 8181:8080 ${DockerHubUser}/${ImageName}:$BUILD_NUMBER'
-		// 	}
-		// }
 
 		stage('Login to DockerHub & Pushing Image') {
 
