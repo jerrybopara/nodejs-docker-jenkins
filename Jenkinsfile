@@ -16,7 +16,8 @@ pipeline{
 		stage('Building an Docker Image') {
 
 			steps {
-				sh 'docker build -t jerrybopara/nodejs-docker-jenkins:latest .'
+				// sh 'docker build -t jerrybopara/nodejs-docker-jenkins:latest .'
+				sh 'docker build -t nodejs-docker-jenkins:latest .'
 				sh 'docker tag nodejs-docker-jenkins jerrybopara/nodejs-docker-jenkins:latest'
 				sh 'docker tag nodejs-docker-jenkins jerrybopara/nodejs-docker-jenkins:$BUILD_NUMBER'
 			}
