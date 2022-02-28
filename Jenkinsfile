@@ -18,9 +18,10 @@ pipeline{
 		}
 
 		stage('Running Docker Container with latest Build.') {
+			
 			steps {
-				script {
-					docker ps  -a | grep ${ContainerName}
+                sh '''
+                  	docker ps  -a | grep ${ContainerName}
 
 					if [ $? -eq 0 ]; then 
 						echo "Stopping & Removing the older Container."
@@ -34,11 +35,11 @@ pipeline{
 						echo "No old container was found, Running new one."
 						docker run -d --name ${ContainerName} -p 8181:8080 ${DockerHubUser}/${ImageName}:$BUILD_NUMBER
 					fi
-				}
+                    
+                '''
 			}
 			
 		}
-
 
 		// stage('Run Docker Container with latest Build.') {
 
