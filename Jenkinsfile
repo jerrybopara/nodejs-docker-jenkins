@@ -24,7 +24,7 @@ pipeline{
 
 					if [ $? -eq 0 ]; then 
 						echo "Stopping & Removing the older Container."
-						ImageID=$(docker images | grep "${DockerHubUser}/${ImageName}" | awk '{print $3}')
+						ImageID=`docker images | grep "${DockerHubUser}/${ImageName}" | awk '{print $3}'`
 						docker stop ${ContainerName}
 						docker rm ${ContainerName}
 						docker rmi ${ImageID} --force
