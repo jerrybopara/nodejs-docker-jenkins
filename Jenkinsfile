@@ -7,20 +7,19 @@ pipeline{
 	}
 
 	stages {
-		// stage('Cloning code from Github') {
-		// 	steps {
-		// 		sh 'git clone https://github.com/jerrybopara/nodejs-docker-jenkins.git'
-		// 	}
-
-		// }
 		stage('Building an Docker Image') {
 
 			steps {
 				// sh 'docker build -t jerrybopara/nodejs-docker-jenkins:latest .'
 				sh 'docker build -t nodejs-docker-jenkins:latest .'
-				// sh 'docker tag nodejs-docker-jenkins jerrybopara/nodejs-docker-jenkins:latest'
-				sh 'docker tag nodejs-docker-jenkins jerrybopara/nodejs-docker-jenkins:$BUILD_NUMBER'
+			 	sh 'docker tag nodejs-docker-jenkins jerrybopara/nodejs-docker-jenkins:$BUILD_NUMBER'
+				// docker run -d -p 8181:8080  jerrybopara/nodejs-docker-jenkins
 			}
+
+		}
+
+		stage(' Run Docker Container with latest Build.') {
+			sh 'docker run -d -p 8181:8080 jerrybopara/nodejs-docker-jenkins:$BUILD_NUMBER'
 
 		}
 
