@@ -17,8 +17,8 @@ pipeline{
 
 			steps {
 				sh 'docker build -t jerrybopara/nodejs-docker-jenkins:latest .'
-				sh 'docker tag jerrybopara jerrybopara/nodejs-docker-jenkins:latest'
-				sh 'docker tag jerrybopara jerrybopara/nodejs-docker-jenkins:$BUILD_NUMBER'
+				sh 'docker tag nodejs-docker-jenkins jerrybopara/nodejs-docker-jenkins:latest'
+				sh 'docker tag nodejs-docker-jenkins jerrybopara/nodejs-docker-jenkins:$BUILD_NUMBER'
 			}
 
 		}
