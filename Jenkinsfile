@@ -7,12 +7,12 @@ pipeline{
 	}
 
 	stages {
-		stage('Cloning code from Github') {
-			steps {
-				sh 'git clone https://github.com/jerrybopara/nodejs-docker-jenkins.git'
-			}
+		// stage('Cloning code from Github') {
+		// 	steps {
+		// 		sh 'git clone https://github.com/jerrybopara/nodejs-docker-jenkins.git'
+		// 	}
 
-		}
+		// }
 		stage('Building an Docker Image') {
 
 			steps {
