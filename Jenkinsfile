@@ -6,7 +6,16 @@ pipeline{
 		DOCKERHUB_CREDENTIALS=credentials('jerrybopara')
 	}
 
+	
+
 	stages {
+		satge('Checking container is running or not.') {
+			steps {
+				def ret = sh(script: 'uname', returnStdout: true)
+				println ret
+			}
+		}
+	
 		stage('Stopping & Removing the older Container.') {
 			steps {
 				sh '''
