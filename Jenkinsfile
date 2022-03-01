@@ -9,7 +9,8 @@ pipeline{
 	stages {
 		 stage('Checking if Container is running OR not') {
 			steps {
-				echo "Git committer email:"
+				def ret = sh(script: 'uname', returnStdout: true)
+				println ret
 			}
 		 }	 
 
