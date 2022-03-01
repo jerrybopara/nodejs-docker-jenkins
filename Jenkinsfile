@@ -7,28 +7,33 @@ pipeline{
 	}
 
 	stages {
-		satge('Checking container is running or not.') {
-			steps {
-				def ret = sh(script: docker ps  -a | grep ${ContainerName} )
-				println ret
+		stage('Chekcing in Container is running ir not') {
+			environment{
+				// status = sh(script: 'docker ps -a | grep ${ContainerName}', returnStdout: true)
+				status = sh(script: 'docker images', returnStdout: true)
 			}
-		}
-	
-		stage('Stopping & Removing the older Container.') {
 			steps {
 				sh '''
-					docker ps -a | grep ${ContainerName}
-					
-					if [ $? -eq 0 ]; then 
-						ImageID=`docker images | grep "${DockerHubUser}/${ImageName}" | awk '{print $3}'`
-						docker stop ${ContainerName}
-						docker rm ${ContainerName}
-						docker rmi ${ImageID} --force
-					fi 	
+					echo "$status"
 				'''
 			}
-
 		}
+		
+		// stage('Stopping & Removing the older Container.') {
+		// 	steps {
+		// 		sh '''
+		// 			docker ps -a | grep ${ContainerName}
+					
+		// 			if [ $? -eq 0 ]; then 
+		// 				ImageID=`docker images | grep "${DockerHubUser}/${ImageName}" | awk '{print $3}'`
+		// 				docker stop ${ContainerName}
+		// 				docker rm ${ContainerName}
+		// 				docker rmi ${ImageID} --force
+		// 			fi 	
+		// 		'''
+		// 	}
+
+		// }
 
 		stage('Building an Docker Image') {
 
