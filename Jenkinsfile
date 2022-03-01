@@ -9,8 +9,9 @@ pipeline{
 	stages {
 		stage('Chekcing in Container is running ir not') {
 			environment{
-				status = sh(script: 'docker ps -a | grep ${ContainerName}; echo $? ', returnStdout: true)
+				// status = sh(script: 'docker ps -a | grep ${ContainerName}; echo $?', returnStdout: true)
 				// status = sh(script: 'docker images', returnStdout: true)
+				status = sh(script: 'docker images | grep "node1" >> /dev/null; echo $?'
 			}
 			steps {
 				sh '''
