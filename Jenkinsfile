@@ -7,12 +7,13 @@ pipeline{
 	}
 	
 	def ret = sh(script: 'uname', returnStdout: true)
+	println ret
 
 	stages {
 		 stage('Checking if Container is running OR not') {
 			steps {
 				
-				println ret
+				echo ${ret}
 			}
 		 }	 
 
