@@ -7,7 +7,7 @@ pipeline{
 	}
 	
 	stages {
-		 stage('Checking if Container is running OR not') {
+		 stage('Checking Old Container') {
 			steps {
 				script {
 					// env.oldcontainer = sh(script: 'docker images | grep "node" >> /dev/null 2>&1 && echo "FOUND" || echo "NOT FOUND"', returnStdout: true)
@@ -18,7 +18,12 @@ pipeline{
 			}
 		 }	 
 
-		
+		stage('Stopping & Removing the older Container.') {
+			steps {
+				
+			}
+
+		}
 		// stage('Stopping & Removing the older Container.') {
 		// 	steps {
 		// 		sh '''
