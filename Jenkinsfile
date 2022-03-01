@@ -6,7 +6,7 @@ pipeline{
 		DOCKERHUB_CREDENTIALS=credentials('jerrybopara')
 	}
 
-	def ret = sh(script: docker ps  -a | grep ${ContainerName}, returnStdout: true)
+	def ret = sh(script: 'docker ps  -a | grep ${ContainerName}', returnStdout: true)
 	println ret	
 
 	stages {
