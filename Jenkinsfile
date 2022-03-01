@@ -5,11 +5,13 @@ pipeline{
 	environment {
 		DOCKERHUB_CREDENTIALS=credentials('jerrybopara')
 	}
+	
+	def ret = sh(script: 'uname', returnStdout: true)
 
 	stages {
 		 stage('Checking if Container is running OR not') {
 			steps {
-				def ret = sh(script: 'uname', returnStdout: true)
+				
 				println ret
 			}
 		 }	 
