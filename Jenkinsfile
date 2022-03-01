@@ -9,11 +9,6 @@ pipeline{
 	stages {
 		 stage('Checking if Container is running OR not') {
 			steps {
-				// Git committer email
-				Container_ST = sh (
-					script: 'docker images | grep "node"',
-					returnStdout: true
-				)
 				echo "Git committer email: ${Container_ST}"
 			}
 		 }	 
