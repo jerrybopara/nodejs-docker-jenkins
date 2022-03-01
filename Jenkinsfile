@@ -9,8 +9,8 @@ pipeline{
 	stages {
 		stage('Chekcing in Container is running ir not') {
 			environment{
-				// status = sh(script: 'docker ps -a | grep ${ContainerName}', returnStdout: true)
-				status = sh(script: 'docker images', returnStdout: true)
+				status = sh(script: 'docker ps -a | grep ${ContainerName}', returnStdout: true)
+				// status = sh(script: 'docker images', returnStdout: true)
 			}
 			steps {
 				sh '''
@@ -35,38 +35,38 @@ pipeline{
 
 		// }
 
-		stage('Building an Docker Image') {
+	// 	stage('Building an Docker Image') {
 
-			steps {
-				sh 'docker build -t ${ImageName}:latest .'
-				sh 'docker tag ${ImageName} ${DockerHubUser}/${ImageName}:$BUILD_NUMBER'
+	// 		steps {
+	// 			sh 'docker build -t ${ImageName}:latest .'
+	// 			sh 'docker tag ${ImageName} ${DockerHubUser}/${ImageName}:$BUILD_NUMBER'
 
-			}
+	// 		}
 
-		}
+	// 	}
 
-		stage('Run Docker Container with latest Build.') {
+	// 	stage('Run Docker Container with latest Build.') {
 
-			steps {
-				// sh 'docker run -d -p 8181:8080 jerrybopara/nodejs-docker-jenkins:$BUILD_NUMBER'
-				sh 'docker run -d --name ${ContainerName} -p 8181:8080 ${DockerHubUser}/${ImageName}:$BUILD_NUMBER'
-			}
-		}
+	// 		steps {
+	// 			// sh 'docker run -d -p 8181:8080 jerrybopara/nodejs-docker-jenkins:$BUILD_NUMBER'
+	// 			sh 'docker run -d --name ${ContainerName} -p 8181:8080 ${DockerHubUser}/${ImageName}:$BUILD_NUMBER'
+	// 		}
+	// 	}
 
-		stage('Login to DockerHub & Pushing Image') {
+	// 	stage('Login to DockerHub & Pushing Image') {
 
-			steps {
-				sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-				sh 'docker push ${DockerHubUser}/${ImageName}:$BUILD_NUMBER'
-			}
-		}
+	// 		steps {
+	// 			sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+	// 			sh 'docker push ${DockerHubUser}/${ImageName}:$BUILD_NUMBER'
+	// 		}
+	// 	}
 
-	}
+	// }
 
-	post {
-		always {
-			sh 'docker logout'
-		}
-	}	
+	// post {
+	// 	always {
+	// 		sh 'docker logout'
+	// 	}
+	// }	
 
 }
