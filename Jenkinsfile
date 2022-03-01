@@ -10,8 +10,9 @@ pipeline{
 		 stage('Checking if Container is running OR not') {
 			steps {
 				script {
-					env.oldcontainer = sh(script: 'docker images | grep "node"', returnStdout: true)
-					echo "${env.oldcontainer}"
+					// env.oldcontainer = sh(script: 'docker images | grep "node" >> /dev/null 2>&1 && echo "FOUND" || echo "NOT FOUND"', returnStdout: true)
+					env.OldContainer = sh(script: 'docker images | grep "node" >> /dev/null 2>&1 && echo "FOUND" || echo "NOT FOUND"', returnStdout: true)
+					echo "${env.OldContainer}"
 				}
 	
 			}
