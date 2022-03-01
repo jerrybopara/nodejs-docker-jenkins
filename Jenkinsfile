@@ -6,9 +6,14 @@ pipeline{
 		DOCKERHUB_CREDENTIALS=credentials('jerrybopara')
 	}
 
-	// def ret = sh(scrcip[t] docker ps  -a | grep ${ContainerName}', returnStdout: true)
-	// def status = sh(script:"ls -la dir1 >${outfile} 2>&1", returnStatus:true)
-	// println ret	
+	def dockerstatus() { 
+		script {  
+			return sh(script : 'docker ps  -a | grep ${ContainerName}', returnStdout: true).trim()
+		}
+	}
+	
+	println dockerstatus
+
 
 	stages {
 		satge('Checking container is running or not.') {
@@ -21,7 +26,7 @@ pipeline{
 		stage('Stopping & Removing the older Container.') {
 			steps {
 				sh '''
-					docker ps  -a | grep ${ContainerName}
+					docker ps -a | grep ${ContainerName}
 					
 					if [ $? -eq 0 ]; then 
 						ImageID=`docker images | grep "${DockerHubUser}/${ImageName}" | awk '{print $3}'`
