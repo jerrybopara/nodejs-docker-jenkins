@@ -7,12 +7,12 @@ pipeline{
 	}
 
 	stages {
-		// satge('Checking container is running or not.') {
-		// 	steps {
-		// 		def ret = sh(script: docker ps  -a | grep ${ContainerName} )
-		// 		println ret
-		// 	}
-		// }
+		satge('Checking container is running or not.') {
+			steps {
+				def ret = sh(script: docker ps  -a | grep ${ContainerName} )
+				println ret
+			}
+		}
 	
 		stage('Stopping & Removing the older Container.') {
 			steps {
