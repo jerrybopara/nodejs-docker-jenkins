@@ -21,7 +21,7 @@ pipeline{
 		stage('Stopping & Removing the older Container.') {
 			when {
                 // Only say hello if a "greeting" is requested
-                expression { "${env.OldContainer}" == 'FOUND' }
+                expression { ${env.OldContainer} == 'FOUND' }
             }
             steps {
                 echo "Hello, bitwiseman!"
