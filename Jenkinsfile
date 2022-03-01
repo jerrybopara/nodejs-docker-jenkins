@@ -53,20 +53,20 @@ pipeline{
 	// 		}
 	// 	}
 
-	// 	stage('Login to DockerHub & Pushing Image') {
+		stage('Login to DockerHub & Pushing Image') {
 
-	// 		steps {
-	// 			sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-	// 			sh 'docker push ${DockerHubUser}/${ImageName}:$BUILD_NUMBER'
-	// 		}
-	// 	}
+			steps {
+				sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+				// sh 'docker push ${DockerHubUser}/${ImageName}:$BUILD_NUMBER'
+			}
+		}
 
-	// }
+	}
 
-	// post {
-	// 	always {
-	// 		sh 'docker logout'
-	// 	}
-	// }	
+	post {
+		always {
+			sh 'docker logout'
+		}
+	}	
 
 }
