@@ -26,7 +26,13 @@ pipeline{
 				}
             }
             steps {
-                echo "Hello, bitwiseman!"
+                echo "Old Container Found, So deleting the Old Container."
+				sh '''
+					ImageID=`docker images | grep "${DockerHubUser}/${ImageName}" | awk '{print $3}'`
+					docker stop ${ContainerName}
+					docker rm ${ContainerName}
+					docker rmi ${ImageID} --force
+				'''
             }
 
 		}
@@ -46,23 +52,23 @@ pipeline{
 
 		// }
 
-	// 	stage('Building an Docker Image') {
+		stage('Building an Docker Image') {
 
-	// 		steps {
-	// 			sh 'docker build -t ${ImageName}:latest .'
-	// 			sh 'docker tag ${ImageName} ${DockerHubUser}/${ImageName}:$BUILD_NUMBER'
+			steps {
+				sh 'docker build -t ${ImageName}:latest .'
+				sh 'docker tag ${ImageName} ${DockerHubUser}/${ImageName}:$BUILD_NUMBER'
 
-	// 		}
+			}
 
-	// 	}
+		}
 
-	// 	stage('Run Docker Container with latest Build.') {
+		stage('Run Docker Container with latest Build.') {
 
-	// 		steps {
-	// 			// sh 'docker run -d -p 8181:8080 jerrybopara/nodejs-docker-jenkins:$BUILD_NUMBER'
-	// 			sh 'docker run -d --name ${ContainerName} -p 8181:8080 ${DockerHubUser}/${ImageName}:$BUILD_NUMBER'
-	// 		}
-	// 	}
+			steps {
+				// sh 'docker run -d -p 8181:8080 jerrybopara/nodejs-docker-jenkins:$BUILD_NUMBER'
+				sh 'docker run -d --name ${ContainerName} -p 8181:8080 ${DockerHubUser}/${ImageName}:$BUILD_NUMBER'
+			}
+		}
 
 		stage('Login to DockerHub & Pushing Image') {
 
