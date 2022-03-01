@@ -7,22 +7,15 @@ pipeline{
 	}
 
 	stages {
-		stage('Checking if Container is running OR not') {
-			environment{
-				status = sh(script: 'docker ps -a | grep ${ContainerName}; echo $?', returnStdout: true)
-				// status = sh(script: 'docker images', returnStdout: true)
-				// status = sh(script: 'docker images | grep "node" >> /dev/null; echo $?', returnStdout: true)
-			}
-			steps {
-				script {
-					if (env.status == '0') {
-						echo "Container is running."
-					} else {
-						echo "Container is NOT running."
-					}
-				}
-			}
-		}
+		 stage('Checking if Container is running OR not') {
+			 // Git committer email
+			Container_ST = sh (
+				script: 'docker images | grep "node"',
+				returnStdout: true
+			).trim()
+			echo "Git committer email: ${Container_ST}"
+		 }	 
+
 		
 		// stage('Stopping & Removing the older Container.') {
 		// 	steps {
