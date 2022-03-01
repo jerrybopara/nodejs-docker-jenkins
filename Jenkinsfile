@@ -6,14 +6,14 @@ pipeline{
 		DOCKERHUB_CREDENTIALS=credentials('jerrybopara')
 	}
 	
-	def ret = sh(script: 'uname', returnStdout: true)
-	println "${ret}"
-
 	stages {
 		 stage('Checking if Container is running OR not') {
 			steps {
-				
-				echo "${ret}"
+				script {
+					env.oldcontainer = sh(script: 'docker images | grep "node"', returnStdout: true)
+					echo "${env.oldcontainer}"
+				}
+	
 			}
 		 }	 
 
