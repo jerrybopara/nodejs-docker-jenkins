@@ -15,7 +15,7 @@ pipeline{
 			}
 			steps {
 				script {
-					if ($status == '0') {
+					if (env.status == '0') {
 						echo "Container is running."
 					} else {
 						echo "Container is NOT running."
