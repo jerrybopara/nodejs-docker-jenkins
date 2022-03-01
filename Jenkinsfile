@@ -13,16 +13,10 @@ pipeline{
 				// status = sh(script: 'docker images', returnStdout: true)
 				status = sh(script: 'docker images | grep "node" >> /dev/null; echo $?', returnStdout: true)
 			}
-			// steps {
-			// 	sh '''
-			// 		echo "$status"
-			// 	'''
-			// }
-			if (status == 0) {
-				echo "Equal"
-			} else {
-				// output is error message from stderr
-				echo "NOT Equal"
+			steps {
+				sh '''
+					echo "$status"
+				'''
 			}
 		}
 		
