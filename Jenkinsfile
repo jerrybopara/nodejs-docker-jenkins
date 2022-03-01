@@ -9,7 +9,7 @@ pipeline{
 	stages {
 		 stage('Checking if Container is running OR not') {
 			steps {
-				echo "Git committer email: ${Container_ST}"
+				echo "Git committer email:"
 			}
 		 }	 
 
