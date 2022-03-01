@@ -14,9 +14,13 @@ pipeline{
 				status = sh(script: 'docker images | grep "node" >> /dev/null; echo $?', returnStdout: true)
 			}
 			steps {
-				sh '''
-					echo "$status"
-				'''
+				script {
+					if ($status == '0') {
+						echo "Container is running."
+					} else {
+						echo "Container is NOT running."
+					}
+				}
 			}
 		}
 		
