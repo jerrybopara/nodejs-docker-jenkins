@@ -6,22 +6,13 @@ pipeline{
 		DOCKERHUB_CREDENTIALS=credentials('jerrybopara')
 	}
 
-	def dockerstatus() { 
-		script {  
-			return sh(script : 'docker ps  -a | grep ${ContainerName}', returnStdout: true).trim()
-		}
-	}
-	
-	println dockerstatus
-
-
 	stages {
-		satge('Checking container is running or not.') {
-			steps {
-				def ret = sh(script: docker ps  -a | grep ${ContainerName} )
-				println ret
-			}
-		}
+		// satge('Checking container is running or not.') {
+		// 	steps {
+		// 		def ret = sh(script: docker ps  -a | grep ${ContainerName} )
+		// 		println ret
+		// 	}
+		// }
 	
 		stage('Stopping & Removing the older Container.') {
 			steps {
