@@ -22,11 +22,11 @@ stages {
 			echo 'Container: ' + env.OldContainer + env.ContainerName
 	
 			script {
-				if (env.OldContainer == 'FOUND') {
-					echo "Container Found. - ${ContainerName}"
+				if (${env.OldContainer} == 'FOUND') {
+					echo "Container Found - ${ContainerName}"
 
-				} else if (env.OldContainer == 'NOTFOUND') {
-					echo "Container Not Found."
+				} else if (${env.OldContainer} == 'NOTFOUND') {
+					echo "Container Not Found"
 				}
 			}	
 			// echo 'ACTION NEED TO BE TAKEN:' + env.ACTION
