@@ -1,13 +1,20 @@
-pipeline {
-    agent any
-    stages {
-        stage("Test") {
-            when {
-                branch "main-*"
-            }
-            steps {
-                echo "Hello Main Branch"
-            }
-        }
-    }
+pipeline{
+	agent any
+	environment {
+		DOCKERHUB_CREDENTIALS=credentials('jerrybopara')
+		
+	}
+
+stages {
+	stage('Checking Old Container') {
+		script {
+			env.OldContainer = sh(script: 'docker ps -a | grep ${ContainerName} >> /dev/null 2>&1 && echo "FOUND" || echo "NOTFOUND"', returnStdout: true)
+			echo "${env.OldContainer}"
+		}
+
+	}
+}
+
+
+
 }
