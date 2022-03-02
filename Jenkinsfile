@@ -15,16 +15,21 @@ stages {
 		}	
 
 	}
-	
-	stage('Print the Value') {
-		when {
-			environment(name: "OldContainer", value: "FOUND")
-		}
-		steps {	
-			echo "Server is Up."
-		}
-
+	stage('My Conditional Stage') {
+    	when (OldContainer = 'FOUND') {
+        echo 'Only on master branch.'
+    	}
 	}
+
+	// stage('Print the Value') {
+	// 	when {
+	// 		environment(name: "OldContainer", value: "FOUND")
+	// 	}
+	// 	steps {	
+	// 		echo "Server is Up."
+	// 	}
+
+	// }
 
 	// stage('Action time') {
 	// 	when {
