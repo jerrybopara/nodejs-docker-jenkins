@@ -2,7 +2,6 @@ pipeline{
 	agent any
 	environment {
 		DOCKERHUB_CREDENTIALS=credentials('jerrybopara')
-		
 	}
 
 stages {
@@ -18,20 +17,13 @@ stages {
 	}
 	
 	stage('Print the Value') {
-		steps {
-			echo 'Container: ' + env.OldContainer + env.ContainerName
-	
-			script {
-				if (env.OldContainer == 'FOUND') {
-					echo "Container Found - ${ContainerName}"
-
-				} else if (env.OldContainer == 'NOTFOUND') {
-					echo "Container Not Found"
-				}
-			}	
-			// echo 'ACTION NEED TO BE TAKEN:' + env.ACTION
-
+		when {
+			environment(name: "OldContainer", value: "FOUND")
 		}
+		steps {	
+			echo "Server is Up."
+		}
+
 	}
 
 	// stage('Action time') {
