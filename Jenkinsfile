@@ -18,7 +18,7 @@ stages {
 	}
 	stage('Print the Value') {
 		steps {
-			echo 'Building Branch: ' + env.OldContainer
+			echo 'Container' + env.OldContainer + env.ContainerName
 		}
 		
 
