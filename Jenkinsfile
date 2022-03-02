@@ -11,18 +11,15 @@ stages {
 			script {
 				env.OldContainer = sh(script: 'docker ps -a | grep ${ContainerName} >> /dev/null 2>&1 && echo "FOUND" || echo "NOTFOUND"', returnStdout: true)
 				echo "SERVER STATUS: ${env.OldContainer}"
+
+				if ( ${env.OldContainer} == "FOUND" ) {
+					echo "SERVER : ${env.OldContainer}"
+				}
+				else {
+					echo "SERVER NOT : ${env.OldContainer}"
+				}
 			}
 		}	
-
-	}
-
-	stage('Print the Value') {
-		when {
-			environment(name: env.OldContainer, value: "FOUND")
-		}
-		steps {	
-			echo "Server is Up."
-		}
 
 	}
 
