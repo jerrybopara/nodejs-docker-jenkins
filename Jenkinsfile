@@ -15,21 +15,16 @@ stages {
 		}	
 
 	}
-	stage('My Conditional Stage') {
-    	when (OldContainer = 'FOUND') {
-        	echo 'Server Chal Reha.'
-    	}
+
+	stage('Print the Value') {
+		when {
+			environment(name: env.OldContainer, value: "FOUND")
+		}
+		steps {	
+			echo "Server is Up."
+		}
+
 	}
-
-	// stage('Print the Value') {
-	// 	when {
-	// 		environment(name: "OldContainer", value: "FOUND")
-	// 	}
-	// 	steps {	
-	// 		echo "Server is Up."
-	// 	}
-
-	// }
 
 	// stage('Action time') {
 	// 	when {
