@@ -1,5 +1,3 @@
-OldContainer = sh(script: 'docker ps -a | grep ${ContainerName} >> /dev/null 2>&1 && echo "FOUND" || echo "NOTFOUND"', returnStdout: true)
-
 pipeline{
 	agent any
 	environment {
@@ -11,14 +9,14 @@ stages {
 		steps {
 			
 			script {
-				// env.OldContainer = sh(script: 'docker ps -a | grep ${ContainerName} >> /dev/null 2>&1 && echo "FOUND" || echo "NOTFOUND"', returnStdout: true)
-				// echo "SERVER STATUS: ${env.OldContainer}"
+				env.OldContainer = sh(script: 'docker ps -a | grep ${ContainerName} >> /dev/null 2>&1 && echo "FOUND" || echo "NOTFOUND"', returnStdout: true)
+				echo "SERVER STATUS: ${env.OldContainer}"
 
-				if ( OldContainer == "FOUND" ) {
-					echo "SERVER : OldContainer"
+				if ( ${env.OldContainer} == "FOUND" ) {
+					echo "SERVER : ${env.OldContainer}"
 				}
 				else {
-					echo "SERVER NOT : OldContainer"
+					echo "SERVER NOT : ${env.OldContainer}"
 				}
 			}
 		}	
