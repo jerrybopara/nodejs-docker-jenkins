@@ -16,11 +16,21 @@ stages {
 		}	
 
 	}
+	
 	stage('Print the Value') {
+
 		steps {
-			echo 'Container' + env.OldContainer + env.ContainerName
+			echo 'Container: ' + env.OldContainer + env.ContainerName
 		}
-		
+	}
+
+	stage('Action time') {
+		when {
+			environment(name: "OldContainer", value: "FOUND")
+		}
+		steps {
+			echo "Let's delete the Older Container: ${env.OldContainer}"
+		}
 
 	}
 
