@@ -1,28 +1,13 @@
-pipeline{
+pipeline {
     agent any
-
-
-    stages{
-        stage('Build if branch master'){
-            when { 
-                    GIT_BRANCH = 'origin/' + sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
-                    return GIT_BRANCH == 'main'
-                     } 
+    stages {
+        stage("Test") {
+            when {
+                branch "main-*"
+            }
             steps {
-                echo "Building from Master Branch"
+                echo "Hello Main Branch"
             }
         }
-
-        stage('Build if branch not master'){
-            when { 
-                    GIT_BRANCH = 'origin/' + sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
-                    return !(GIT_BRANCH == 'main')
-                     } 
-            steps {
-                echo "Building from ${GIT_BRANCH} Branch"
-            }
-        }
-
-      
-        }
+    }
 }
