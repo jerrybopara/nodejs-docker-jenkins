@@ -23,13 +23,13 @@ stages {
 	
 			script {
 				if (env.OldContainer == 'FOUND') {
-					ACTION = 'DELETE'
+					echo "Container Found. - ${ContainerName}"
 
 				} else if (env.OldContainer == 'NOTFOUND') {
-					ACTION = 'NO-DELETE'
+					echo "Container Not Found."
 				}
 			}	
-			echo 'ACTION NEED TO BE TAKEN:' + env.ACTION
+			// echo 'ACTION NEED TO BE TAKEN:' + env.ACTION
 
 		}
 	}
