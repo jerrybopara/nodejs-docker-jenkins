@@ -17,7 +17,7 @@ stages {
 	}
 	stage('My Conditional Stage') {
     	when (OldContainer = 'FOUND') {
-        echo 'Only on master branch.'
+        	echo 'Server Chal Reha.'
     	}
 	}
 
