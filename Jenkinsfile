@@ -1,6 +1,6 @@
 pipeline{
 
-	agent any
+	agent localhost
 
 	environment {
 		DOCKERHUB_CREDENTIALS=credentials('jerrybopara')
