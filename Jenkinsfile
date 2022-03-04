@@ -1,6 +1,8 @@
 pipeline{
 
-	agent localhost
+	agent {
+		label "JenkinsLocal"
+	}
 
 	environment {
 		DOCKERHUB_CREDENTIALS=credentials('jerrybopara')
