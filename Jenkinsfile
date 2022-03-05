@@ -1,6 +1,6 @@
 #!groovy
 // slack channel where you want to send the job notification
-def name = 'Jerry Bopara'
+def STATUS = 'FOUND'
 
 pipeline{
 
@@ -19,28 +19,27 @@ pipeline{
 					// env.OldContainer = sh(script: 'docker images | grep "node" >> /dev/null 2>&1 && echo "FOUND" || echo "NOT FOUND"', returnStdout: true)
 					env.OldContainer = sh(script: 'docker ps -a | grep ${ContainerName} >> /dev/null 2>&1 && echo "FOUND" || echo "NOTFOUND"', returnStdout: true)
 					echo "${env.OldContainer}"
-					echo "${name}"
 				}
 	
 			}
 		 }	 
 
-		// stage('Stopping & Removing the older Container.') {
-		// 	when {
-        //         // Only say hello if a "greeting" is requested
-		// 		'${env.OldContainer}' == 'FOUND'
-        //     }
-        //     steps {
-        //         echo "Old Container Found, So deleting the Old Container."
-		// 		sh '''
-		// 			ImageID=`docker images | grep "${DockerHubUser}/${ImageName}" | awk '{print $3}'`
-		// 			docker stop ${ContainerName}
-		// 			docker rm ${ContainerName}
-		// 			docker rmi ${ImageID} --force
-		// 		'''
-        //     }
+		stage('Stopping & Removing the older Container.') {
+			when {
+                // Only say hello if a "greeting" is requested
+				'${env.OldContainer}' == '${STATUS}'
+            }
+            steps {
+                echo "Old Container Found, So deleting the Old Container."
+				sh '''
+					ImageID=`docker images | grep "${DockerHubUser}/${ImageName}" | awk '{print $3}'`
+					docker stop ${ContainerName}
+					docker rm ${ContainerName}
+					docker rmi ${ImageID} --force
+				'''
+            }
 
-		// }
+		}
 		stage('Stopping & Removing the older Container.') {
 			steps {
 				sh '''
