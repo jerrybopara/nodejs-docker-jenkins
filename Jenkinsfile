@@ -1,3 +1,7 @@
+#!groovy
+// slack channel where you want to send the job notification
+def name = 'Jerry Bopara'
+
 pipeline{
 
 	agent {
@@ -15,6 +19,7 @@ pipeline{
 					// env.OldContainer = sh(script: 'docker images | grep "node" >> /dev/null 2>&1 && echo "FOUND" || echo "NOT FOUND"', returnStdout: true)
 					env.OldContainer = sh(script: 'docker ps -a | grep ${ContainerName} >> /dev/null 2>&1 && echo "FOUND" || echo "NOTFOUND"', returnStdout: true)
 					echo "${env.OldContainer}"
+					echo "${name}"
 				}
 	
 			}
