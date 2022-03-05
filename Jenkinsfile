@@ -25,10 +25,10 @@ pipeline{
 		 }	 
 
 		stage('Lets delete the older Container.'){
-			// when {
-			// 	// '${env.OldContainer}' == 'FOUND'
-			// 	expression "${OldContainer} == ${STATUS}"
-			// }
+			when {
+				// '${env.OldContainer}' == 'FOUND'
+				 environment(name: "EOldContainerNV", value: "FOUND")
+			}
 			steps {
 				echo "Old Container Status. ${OldContainer}"
 				echo "Variable Value - ${STATUS}"
