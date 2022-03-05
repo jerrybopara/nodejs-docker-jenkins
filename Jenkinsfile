@@ -24,7 +24,7 @@ pipeline{
 		stage('Lets delete the older Container.'){
 			steps {
 				script {
-					if (env.OldContainer == 'FOUND') {
+					if ("${env.OldContainer}" == 'FOUND') {
 						echo 'Old Container is  running: ${env.OldContainer}'
 					} else {
 						echo 'No Container Found.'	
