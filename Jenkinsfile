@@ -30,7 +30,7 @@ pipeline{
 			// 	expression { env.OldContainer == env.STATUS }
 			// }
 			steps {
-				echo "Container Found. "${env.OldContainer}""
+				echo "Container Found. ${env.OldContainer}"
 				echo "STATUS - ${STATUS}"
 
 			}
