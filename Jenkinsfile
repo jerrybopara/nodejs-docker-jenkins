@@ -25,7 +25,7 @@ pipeline{
 			steps {
 				script {
 					if (env.OldContainer == 'FOUND') {
-						echo 'Old Container is  running: ${$env.OldContainer}'	
+						echo 'Old Container is  running: ${env.OldContainer}'
 					} else {
 						echo 'No Container Found.'	
 						echo '${$env.OldContainer}'
