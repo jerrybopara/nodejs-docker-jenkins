@@ -24,22 +24,30 @@ pipeline{
 			}
 		 }	 
 
-		stage('Stopping & Removing the older Container.') {
+		stage('Lets delete the older Container.'){
 			when {
-             // Only say hello if a "greeting" is requested
-				'${env.OldContainer}' == 'FOUND'
-            }
-            steps {
-                echo "Old Container Found, So deleting the Old Container."
-				sh '''
-					ImageID=`docker images | grep "${DockerHubUser}/${ImageName}" | awk '{print $3}'`
-					docker stop ${ContainerName}
-					docker rm ${ContainerName}
-					docker rmi ${ImageID} --force
-				'''
-            }
-
+				'${env.OldContainer}' == '${STATUS}'
+			}
+			steps {
+				echo "Container Found."
+			}
 		}
+		// stage('Stopping & Removing the older Container.') {
+		// 	when {
+        //      // Only say hello if a "greeting" is requested
+		// 		'${env.OldContainer}' == 'FOUND'
+        //     }
+        //     steps {
+        //         echo "Old Container Found, So deleting the Old Container."
+		// 		sh '''
+		// 			ImageID=`docker images | grep "${DockerHubUser}/${ImageName}" | awk '{print $3}'`
+		// 			docker stop ${ContainerName}
+		// 			docker rm ${ContainerName}
+		// 			docker rmi ${ImageID} --force
+		// 		'''
+        //     }
+
+		// }
 
 		stage('2nd Stopping & Removing the older Container.') {
 			steps {
