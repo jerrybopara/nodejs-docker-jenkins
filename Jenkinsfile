@@ -25,14 +25,17 @@ pipeline{
 		 }	 
 
 		stage('Lets delete the older Container.'){
-			when {
-				// '${env.OldContainer}' == 'FOUND'
-				 environment(name: "OldContainer", value: "FOUND")
-			}
 			steps {
-				echo "Old Container Status. ${OldContainer}"
-				echo "Variable Value - ${STATUS}"
+				script {
+					if (env.OldContainer == 'FOUND') {
+						echo 'Old Container is  running: ${$env.OldContainer}'	
+					} else {
+						echo 'No Container Found.'	
+					}
+
+				}
 			}
+
 		}
 
 		// stage('2nd Stopping & Removing the older Container.') {
