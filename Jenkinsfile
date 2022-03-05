@@ -51,21 +51,21 @@ pipeline{
 
 		// }
 
-		stage('2nd Stopping & Removing the older Container.') {
-			steps {
-				sh '''
-					docker ps -a | grep ${ContainerName}
+		// stage('2nd Stopping & Removing the older Container.') {
+		// 	steps {
+		// 		sh '''
+		// 			docker ps -a | grep ${ContainerName}
 					
-					if [ $? -eq 0 ]; then 
-						ImageID=`docker images | grep "${DockerHubUser}/${ImageName}" | awk '{print $3}'`
-						docker stop ${ContainerName}
-						docker rm ${ContainerName}
-						docker rmi ${ImageID} --force
-					fi 	
-				'''
-			}
+		// 			if [ $? -eq 0 ]; then 
+		// 				ImageID=`docker images | grep "${DockerHubUser}/${ImageName}" | awk '{print $3}'`
+		// 				docker stop ${ContainerName}
+		// 				docker rm ${ContainerName}
+		// 				docker rmi ${ImageID} --force
+		// 			fi 	
+		// 		'''
+		// 	}
 
-		}
+		// }
 
 		stage('Building an Docker Image') {
 
