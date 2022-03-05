@@ -1,6 +1,6 @@
 #!groovy
 // slack channel where you want to send the job notification
-def STATUS = 'FOUND'
+def STATUS = 'NOTFOUND'
 
 pipeline{
 
