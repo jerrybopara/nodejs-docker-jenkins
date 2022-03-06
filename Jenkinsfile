@@ -10,18 +10,6 @@ pipeline{
 	}
 	
 	stages {
-	     stage('Step1') {
-			 steps {
-				 if (env.BRANCH_NAME == 'main') {
-					echo 'Hello from main branch'
-				} else {
-					sh "echo 'Hello from ${env.BRANCH_NAME} branch!'"
-				}
-			 }
-			
-		 }
-	
-	
 		 stage('Checking Old Container') {
 			steps {
 				script {
@@ -33,17 +21,19 @@ pipeline{
 			}
 		 }	 
 
-		stage('Lets delete the older Container.'){
+		stage('2nd Stopping & Removing the older Container.') {
 			steps {
-				script { 
-					if (env.OldContainer == '0') {
-						echo 'Old Container is  running: ${env.OldContainer}'
-					} else {
-						echo 'No Container Found.'	
-						echo "${env.OldContainer}"
-					}
-
-				}
+				sh '''
+					// docker ps -a | grep ${ContainerName}
+					docker ps -a | awk '{print $(NF)}' | grep -w ${ContainerName} >> /dev/null 2>&1
+					
+					if [ $? -eq 0 ]; then 
+						ImageID=`docker images | grep "${DockerHubUser}/${ImageName}" | awk '{print $3}'`
+						docker stop ${ContainerName}
+						docker rm ${ContainerName}
+						docker rmi ${ImageID} --force
+					fi 	
+				'''
 			}
 
 		}
