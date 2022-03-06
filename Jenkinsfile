@@ -10,25 +10,27 @@ pipeline{
 	}
 	
 	stages {
-		 stage('Checking Old Container') {
-			steps {
-				script {
-					// env.OldContainer = sh(script: 'docker images | grep "node" >> /dev/null 2>&1 && echo "FOUND" || echo "NOT FOUND"', returnStdout: true)
-					env.OldContainer = sh(script: 'docker ps -a | grep -w ${ContainerName} >> /dev/null 2>&1 && echo "0" || echo "5"', returnStdout: true)
-					echo "Container Status - ${env.OldContainer}"
-				}
+		//  stage('Checking Old Container') {
+		// 	steps {
+		// 		script {
+		// 			// env.OldContainer = sh(script: 'docker images | grep "node" >> /dev/null 2>&1 && echo "FOUND" || echo "NOT FOUND"', returnStdout: true)
+		// 			env.OldContainer = sh(script: 'docker ps -a | grep -w ${ContainerName} >> /dev/null 2>&1 && echo "0" || echo "5"', returnStdout: true)
+		// 			echo "Container Status - ${env.OldContainer}"
+		// 		}
 	
-			}
-		 }	 
+		// 	}
+		//  }	 
 
-		stage('2nd Stopping & Removing the older Container.') {
+		stage('Stopping & Removing the older Container.') {
 			steps {
 				sh '''
 					// docker ps -a | grep ${ContainerName}
 					docker ps -a | awk '{print $(NF)}' | grep -w ${ContainerName} >> /dev/null 2>&1
-					
+					echo "Reruen: $?"
+
 					if [ $? -eq 0 ]; then 
 						ImageID=`docker images | grep "${DockerHubUser}/${ImageName}" | awk '{print $3}'`
+						echo "Image: ${ImageID}"	
 						docker stop ${ContainerName}
 						docker rm ${ContainerName}
 						docker rmi ${ImageID} --force
