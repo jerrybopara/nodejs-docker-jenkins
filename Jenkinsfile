@@ -14,8 +14,7 @@ pipeline{
 			steps {
 				script {
 					// env.OldContainer = sh(script: 'docker images | grep "node" >> /dev/null 2>&1 && echo "FOUND" || echo "NOT FOUND"', returnStdout: true)
-					// env.OldContainer = sh(script: 'docker ps -a | awk '{print $NF}' | grep -w ${ContainerName} >> /dev/null 2>&1 && echo "0" || echo "5"', returnStdout: true)
-					env.OldContainer = sh(script: 'docker ps -a | awk '{print $NF}'', returnStdout: true)
+					env.OldContainer = sh(script: 'docker ps -a | grep -w ${ContainerName} >> /dev/null 2>&1 && echo "0" || echo "5"', returnStdout: true)
 					echo "Container Status - ${env.OldContainer}"
 				}
 	
