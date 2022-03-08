@@ -16,9 +16,9 @@ pipeline{
 	environment {
 		DOCKERHUB_CREDENTIALS=credentials('jerrybopara'
         // Define variable - FoldersToScan
-        ImageName = 'nodejs-docker-jenkins'
-        ContainerName = 'nodejs-docker-auto'
-        DockerHubUser = 'jerrybopara'      
+        ImageName = "nodejs-docker-jenkins"
+        ContainerName = "nodejs-docker-auto"
+        DockerHubUser = "jerrybopara"      
     }
 	
 	stages {
