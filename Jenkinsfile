@@ -26,15 +26,15 @@ pipeline{
 				sh '''
 					# docker ps -a | grep ${ContainerName}
 					docker ps -a | awk '{print $(NF)}' | grep -w ${ContainerName} >> /dev/null 2>&1
-					echo "Retrun: $?"
+					echo "Return: $?"
 
-					# if [ $? -eq 0 ]; then 
-					# 	ImageID=`docker images | grep "${DockerHubUser}/${ImageName}" | awk '{print $3}'`
-					# 	echo "Image: ${ImageID}"	
-					# 	docker stop ${ContainerName}
-					# 	docker rm ${ContainerName}
-					# 	docker rmi ${ImageID} --force
-					# fi 	
+					if [ $? -eq 0 ]; then 
+						ImageID=`docker images | grep "${DockerHubUser}/${ImageName}" | awk '{print $3}'`
+					 	echo "Image: ${ImageID}"	
+					 	docker stop ${ContainerName}
+					 	docker rm ${ContainerName}
+					 	docker rmi ${ImageID} --force
+					fi 	
 				'''
 			}
 
