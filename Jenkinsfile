@@ -29,7 +29,12 @@ pipeline{
 			}	
 			post {
 				failure {
-					echo 'Jerry No container Found.'
+					steps {
+						sh '''
+							echo 'Jerry No container Found.'
+						'''
+					}
+					
 				}
 			}
 
