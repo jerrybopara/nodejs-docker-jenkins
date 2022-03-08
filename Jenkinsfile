@@ -1,4 +1,3 @@
-
 #!groovy
 pipeline{
 
@@ -12,6 +11,7 @@ pipeline{
 	
 	stages {
 		stage('Stopping & Removing the older Container.') {
+			
 			steps {
 				sh '''
 					# docker ps -a | grep ${ContainerName}
