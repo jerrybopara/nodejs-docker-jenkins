@@ -1,6 +1,18 @@
 #!groovy
 pipeline{
 	
+	// environment {
+	// 	DOCKERHUB_CREDENTIALS=credentials('jerrybopara'
+    //     // Define variable - FoldersToScan
+    //     ImageName = 'nodejs-docker-jenkins'
+    //     ContainerName = 'nodejs-docker-auto'
+    //     DockerHubUser = 'jerrybopara'      
+    // }
+
+	agent {
+		label "JenkinsLocal"
+	}
+
 	environment {
 		DOCKERHUB_CREDENTIALS=credentials('jerrybopara'
         // Define variable - FoldersToScan
@@ -8,17 +20,6 @@ pipeline{
         ContainerName = 'nodejs-docker-auto'
         DockerHubUser = 'jerrybopara'      
     }
-
-	agent {
-		label "JenkinsLocal"
-	}
-
-	// environment {
-	// 	DOCKERHUB_CREDENTIALS=credentials('jerrybopara')
-	// 	// ImageName = 'nodejs-docker-jenkins'
-    //     // ContainerName = 'nodejs-docker-auto'
-    //     // DockerHubUser = 'jerrybopara'
-	// }
 	
 	stages {
 		stage('Stopping & Removing the older Container.') {
