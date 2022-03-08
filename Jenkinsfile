@@ -1,12 +1,12 @@
 #!groovy
 pipeline{
 	
-	environment {
-        // Define variable - FoldersToScan
-        ImageName = 'nodejs-docker-jenkins'
-        ContainerName = 'nodejs-docker-auto'
-        DockerHubUser = 'jerrybopara'      
-    }
+	// environment {
+    //     // Define variable - FoldersToScan
+    //     ImageName = 'nodejs-docker-jenkins'
+    //     ContainerName = 'nodejs-docker-auto'
+    //     DockerHubUser = 'jerrybopara'      
+    // }
 
 	agent {
 		label "JenkinsLocal"
@@ -14,6 +14,9 @@ pipeline{
 
 	environment {
 		DOCKERHUB_CREDENTIALS=credentials('jerrybopara')
+		ImageName = 'nodejs-docker-jenkins'
+        ContainerName = 'nodejs-docker-auto'
+        DockerHubUser = 'jerrybopara'
 	}
 	
 	stages {
