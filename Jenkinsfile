@@ -1,25 +1,14 @@
+
 #!groovy
 pipeline{
-	
-	// environment {
-	// 	DOCKERHUB_CREDENTIALS=credentials('jerrybopara'
-    //     // Define variable - FoldersToScan
-    //     ImageName = 'nodejs-docker-jenkins'
-    //     ContainerName = 'nodejs-docker-auto'
-    //     DockerHubUser = 'jerrybopara'      
-    // }
 
 	agent {
 		label "JenkinsLocal"
 	}
 
 	environment {
-		DOCKERHUB_CREDENTIALS=credentials('jerrybopara'
-        // Define variable - FoldersToScan
-        ImageName = "nodejs-docker-jenkins"
-        ContainerName = "nodejs-docker-auto"
-        DockerHubUser = "jerrybopara"      
-    }
+		DOCKERHUB_CREDENTIALS=credentials('jerrybopara')
+	}
 	
 	stages {
 		stage('Stopping & Removing the older Container.') {
@@ -35,8 +24,6 @@ pipeline{
 					 	docker stop ${ContainerName}
 					 	docker rm ${ContainerName}
 					 	docker rmi ${ImageID} --force
-					else 
-						echo "Need to Setup new Container."						 
 					fi 	
 				'''
 			}	
