@@ -15,7 +15,7 @@ RUN npm install
 # Bundle app source
 COPY . .
 
-EXPOSE 8080
+EXPOSE 8082
 CMD [ "node", "server.js" ]
 
 # Below command is to launch the container from the image you just built.

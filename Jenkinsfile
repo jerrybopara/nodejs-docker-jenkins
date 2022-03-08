@@ -1,5 +1,12 @@
 #!groovy
 pipeline{
+	
+	environment {
+        // Define variable - FoldersToScan
+        ImageName = 'nodejs-docker-jenkins'
+        ContainerName = 'nodejs-docker-auto'
+        DockerHubUser = 'jerrybopara'      
+    }
 
 	agent {
 		label "JenkinsLocal"
@@ -43,7 +50,7 @@ pipeline{
 
 			steps {
 				// sh 'docker run -d -p 8181:8080 jerrybopara/nodejs-docker-jenkins:$BUILD_NUMBER'
-				sh 'docker run -d --name ${ContainerName} -p 8181:8080 ${DockerHubUser}/${ImageName}:$BUILD_NUMBER'
+				sh 'docker run -d --name ${ContainerName} -p 8282:8080 ${DockerHubUser}/${ImageName}:$BUILD_NUMBER'
 			}
 		}
 
