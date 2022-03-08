@@ -14,6 +14,7 @@ pipeline{
 
 	environment {
 		DOCKERHUB_CREDENTIALS=credentials('jerrybopara')
+
 		ImageName = 'nodejs-docker-jenkins'
         ContainerName = 'nodejs-docker-auto'
         DockerHubUser = 'jerrybopara'
@@ -33,6 +34,8 @@ pipeline{
 					 	docker stop ${ContainerName}
 					 	docker rm ${ContainerName}
 					 	docker rmi ${ImageID} --force
+					else 
+						echo "Need to Setup new Container."						 
 					fi 	
 				'''
 			}	
