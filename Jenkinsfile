@@ -24,11 +24,14 @@ pipeline{
 					 	docker stop ${ContainerName}
 					 	docker rm ${ContainerName}
 					 	docker rmi ${ImageID} --force
-					else 
-						echo "Container Is not Running."							 
 					fi 	
 				'''
 			}	
+			post {
+				failure {
+					echo 'Jerry No container Found.'
+				}
+			}
 
 		}
 
