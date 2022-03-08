@@ -36,10 +36,9 @@ pipeline{
 					 	docker rmi ${ImageID} --force
 					fi 	
 				'''
-			}
+			}	
 
 		}
-
 
 		// stage('2nd Stopping & Removing the older Container.') {
 		// 	steps {
