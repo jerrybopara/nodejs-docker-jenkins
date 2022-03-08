@@ -10,17 +10,6 @@ pipeline{
 	}
 	
 	stages {
-		//  stage('Checking Old Container') {
-		// 	steps {
-		// 		script {
-		// 			// env.OldContainer = sh(script: 'docker images | grep "node" >> /dev/null 2>&1 && echo "FOUND" || echo "NOT FOUND"', returnStdout: true)
-		// 			env.OldContainer = sh(script: 'docker ps -a | grep -w ${ContainerName} >> /dev/null 2>&1 && echo "0" || echo "5"', returnStdout: true)
-		// 			echo "Container Status - ${env.OldContainer}"
-		// 		}
-	
-		// 	}
-		//  }	 
-
 		stage('Stopping & Removing the older Container.') {
 			steps {
 				sh '''
@@ -39,22 +28,6 @@ pipeline{
 			}	
 
 		}
-
-		// stage('2nd Stopping & Removing the older Container.') {
-		// 	steps {
-		// 		sh '''
-		// 			docker ps -a | grep ${ContainerName}
-					
-		// 			if [ $? -eq 0 ]; then 
-		// 				ImageID=`docker images | grep "${DockerHubUser}/${ImageName}" | awk '{print $3}'`
-		// 				docker stop ${ContainerName}
-		// 				docker rm ${ContainerName}
-		// 				docker rmi ${ImageID} --force
-		// 			fi 	
-		// 		'''
-		// 	}
-
-		// }
 
 		stage('Building an Docker Image') {
 
