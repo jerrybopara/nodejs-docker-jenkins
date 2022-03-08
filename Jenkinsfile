@@ -11,7 +11,7 @@ pipeline{
 	
 	stages {
 		stage('Stopping & Removing the older Container.') {
-			
+
 			steps {
 				sh '''
 					# docker ps -a | grep ${ContainerName}
@@ -24,6 +24,8 @@ pipeline{
 					 	docker stop ${ContainerName}
 					 	docker rm ${ContainerName}
 					 	docker rmi ${ImageID} --force
+					else 
+						echo "Container Is not Running."							 
 					fi 	
 				'''
 			}	
