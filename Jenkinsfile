@@ -24,8 +24,8 @@ pipeline{
 		stage('Stopping & Removing the older Container.') {
 			steps {
 				sh '''
-					// docker ps -a | grep ${ContainerName}
-					docker ps -a | awk '{print $(NF)}' | grep -w ${ContainerName} >> /dev/null 2>&1
+					docker ps -a | grep ${ContainerName}
+					// docker ps -a | awk '{print $(NF)}' | grep -w ${ContainerName} >> /dev/null 2>&1
 					echo "Retrun: $?"
 
 					// if [ $? -eq 0 ]; then 
