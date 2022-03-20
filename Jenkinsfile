@@ -37,8 +37,10 @@ pipeline{
 			}	
 			post {
 				failure {
-					// echo 'Jerry No container Found. '
-					sh 'echo "Jerry No container Found."'
+
+					sh 'docker build -t ${ImageName}:latest .'
+					sh 'docker tag ${ImageName} ${DockerHubUser}/${ImageName}:$BUILD_NUMBER'
+
 				}
 			}
 
