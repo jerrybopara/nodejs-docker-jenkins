@@ -28,6 +28,11 @@ pipeline{
 					 	docker rm ${ContainerName}
 					 	docker rmi ${ImageID} --force
 
+						docker build -t "${ImageName}":latest .
+						docker tag ${ImageName} ${DockerHubUser}/${ImageName}:$BUILD_NUMBER 
+						docker run -d --name ${ContainerName} -p 8181:8080 ${DockerHubUser}/${ImageName}:$BUILD_NUMBER
+						echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin	
+						docker push ${DockerHubUser}/${ImageName}:$BUILD_NUMBER
 					fi 	
 				'''
 			}	
