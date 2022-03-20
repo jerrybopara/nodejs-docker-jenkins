@@ -1,16 +1,11 @@
 #!groovy
-// Define variable
-// def ContainerName = "nodejs-docker-auto"
-// def ImageName = "nodejs-docker-jenkins"
-// def DockerHubUser = "jerrybopara"
-
 pipeline{
-	// environment {
-    //     // Define variable - FoldersToScan
-    //     ImageName = 'nodejs-docker-jenkins'
-    //     ContainerName = 'nodejs-docker-auto'
-    //     DockerHubUser = 'jerrybopara'      
-    // }
+	environment {
+        // Define variable - FoldersToScan
+        ImageName = 'nodejs-docker-jenkins'
+        ContainerName = 'nodejs-docker-auto'
+        DockerHubUser = 'jerrybopara'      
+    }
 
 	agent {
 		label "JenkinsLocal"
@@ -45,41 +40,17 @@ pipeline{
 			post {
 				failure {		
 					sh 'docker images'	
+					sh 'Creating Image.'
 					sh 'docker build -t "${ImageName}":latest .'
 					sh 'docker tag ${ImageName} ${DockerHubUser}/${ImageName}:$BUILD_NUMBER'
+					sh 'docker run -d --name ${ContainerName} -p 8181:8080 ${DockerHubUser}/${ImageName}:$BUILD_NUMBER'
+					sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+					sh 'docker push ${DockerHubUser}/${ImageName}:$BUILD_NUMBER'
 
 				}
 			}
 
 		}
-
-		stage('Building an Docker Image') {
-
-			steps {
-				sh 'docker build -t ${ImageName}:latest .'
-				sh 'docker tag ${ImageName} ${DockerHubUser}/${ImageName}:$BUILD_NUMBER'
-
-			}
-
-		}
-
-		stage('Run Docker Container with latest Build.') {
-
-			steps {
-				// sh 'docker run -d -p 8181:8080 jerrybopara/nodejs-docker-jenkins:$BUILD_NUMBER'
-				sh 'docker run -d --name ${ContainerName} -p 8181:8080 ${DockerHubUser}/${ImageName}:$BUILD_NUMBER'
-			}
-		}
-
-		stage('Login to DockerHub & Pushing Image') {
-
-			steps {
-				sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-				sh 'docker push ${DockerHubUser}/${ImageName}:$BUILD_NUMBER'
-			}
-		}
-
-	}
 
 	post {
 		always {
