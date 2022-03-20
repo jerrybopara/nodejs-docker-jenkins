@@ -37,7 +37,8 @@ pipeline{
 			}	
 			post {
 				failure {
-					echo 'Jerry No container Found. '
+					// echo 'Jerry No container Found. '
+					sh 'echo "Jerry No container Found."'
 				}
 			}
 
