@@ -1,11 +1,5 @@
 #!groovy
 pipeline{
-	environment {
-        // Define variable - FoldersToScan
-        ImageName = 'nodejs-docker-jenkins'
-        ContainerName = 'nodejs-docker-auto'
-        DockerHubUser = 'jerrybopara'      
-    }
 
 	agent {
 		label "JenkinsLocal"
