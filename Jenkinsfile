@@ -29,6 +29,9 @@ pipeline{
 					 	docker stop ${ContainerName}
 					 	docker rm ${ContainerName}
 					 	docker rmi ${ImageID} --force
+					else 
+						echo "Lets make a new container."
+					
 					fi 	
 				'''
 			}	
