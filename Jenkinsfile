@@ -1,4 +1,9 @@
 #!groovy
+// Define variable
+def ContainerName = "nodejs-docker-auto"
+def ImageName = "nodejs-docker-jenkins"
+def DockerHubUser = "jerrybopara"
+
 pipeline{
 
 	agent {
