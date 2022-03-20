@@ -13,7 +13,7 @@ pipeline{
 	}
 	
 	stages {
-		stage('Stopping & Removing the older Container.') {
+		stage('Stopping & Removing the older Container & Launching New Container.') {
 
 			steps {
 				sh '''
