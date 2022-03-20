@@ -33,7 +33,6 @@ pipeline{
 			}	
 			post {
 				failure {		
-					sh 'Creating Image.'
 					sh 'docker build -t "${ImageName}":latest .'
 					sh 'docker tag ${ImageName} ${DockerHubUser}/${ImageName}:$BUILD_NUMBER'
 					sh 'docker run -d --name ${ContainerName} -p 8181:8080 ${DockerHubUser}/${ImageName}:$BUILD_NUMBER'
